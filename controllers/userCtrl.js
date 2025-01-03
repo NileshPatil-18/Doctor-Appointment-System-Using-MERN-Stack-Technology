@@ -82,10 +82,10 @@ const authController = async (req, res) => {
 // APpply DOctor CTRL
 const applyDoctorController = async (req, res) => {
   try {
-    const newDoctor = await doctorModel({ ...req.body, status: "pending" });
+    const newDoctor = await doctorModel({ ...req.body, status: "pending" })
     await newDoctor.save();
-    const adminUser = await userModel.findOne({ isAdmin: true });
-    const notifcation = adminUser.notifcation;
+    const adminUser = await userModel.findOne();
+    const notifcation = await adminUser.notifcation;
     notifcation.push({
       type: "apply-doctor-request",
       message: `${newDoctor.firstName} ${newDoctor.lastName} Has Applied For A Doctor Account`,
